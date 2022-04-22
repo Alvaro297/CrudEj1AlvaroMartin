@@ -25,8 +25,8 @@ public class PersonaControler {
     }
 
     @GetMapping("/getPerson/{id}")
-    public PersonaOutputDTO getPersonById(@PathVariable Integer id) throws Exception {
-        return personaService.findById(id);
+    public Persona getPersonById(@PathVariable Integer id) throws Exception {
+        return personaRepository.findById(id).orElseThrow(()->new Exception("No encontrado"));
     }
 
     @GetMapping("/getPersona")
@@ -35,8 +35,8 @@ public class PersonaControler {
     }
 
     @GetMapping("/getPerson/name/{name}")
-    public List<PersonaOutputDTO> deletePersonaByName(@PathVariable String name) throws Exception {
-        return personaService.findByName(name);
+    public List<PersonaOutputDTO> deletePersonaByName(@PathVariable String name) {
+        return personaRepository.findByName(name);
     }
 
     @DeleteMapping("/delete/{id}")

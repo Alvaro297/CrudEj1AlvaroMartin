@@ -8,7 +8,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PersonaOutputDTO {
-    private Integer personId;
+    private Integer personaId;
 
     private String user;
     private String password;
@@ -23,7 +23,7 @@ public class PersonaOutputDTO {
     private Date terminationDate;
 
     public PersonaOutputDTO(Persona persona){
-        setPersonId(persona.getPersonId());
+        setPersonaId(persona.getPersonId());
         setActive(persona.getActive());
         setCity(persona.getCity());
         setCompanyEmail(persona.getCompanyEmail());

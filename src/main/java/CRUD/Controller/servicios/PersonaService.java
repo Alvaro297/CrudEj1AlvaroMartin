@@ -16,41 +16,23 @@ public class PersonaService implements PersonaI{
     @Autowired
     private PersonaRepository personaRepository;
 
-
     @Override
     public PersonaOutputDTO addPersona(PersonaInputDTO personaDTO) throws Exception{
-        if(personaDTO.getUser().length()< 0 || personaDTO.getUser().length()>10){
-            throw new Exception("El usuario debe tener entre 0 y 10 caracteres");
+        if(personaDTO.getUser().length()>10){
+            throw new Exception("El usuario no puede tener mas de 10 caracteres");
         } else {
-            Persona person = new Persona(personaDTO);
-            personaRepository.save(person);
-            PersonaOutputDTO saveOutputDTO = new PersonaOutputDTO(person);
+            Persona persona = new Persona(personaDTO);
+            personaRepository.save(persona);
+            PersonaOutputDTO saveOutputDTO = new PersonaOutputDTO(persona);
             return saveOutputDTO;
 
         }
     }
-    @Override
-    public List<PersonaOutputDTO> findByName(String name) throws Exception{
-        try{
-            List<PersonaOutputDTO> peopleByName = personaRepository.findByName(name);
-            return peopleByName;
-        } catch(Exception e){
-            throw new Exception("No se ha podido encontrar el usuario");
-        }
-    }
 
-    @Override
-    public PersonaOutputDTO findById(Integer id) throws Exception{
-
-        Persona peopleById = personaRepository.findById(id).orElseThrow(()-> new Exception("No se ha encontrado"));
-        return new PersonaOutputDTO(peopleById);
-
-    }
     @Override
     public String deletedById(Integer id) throws Exception{
-        personaRepository.findById(id).orElseThrow(() -> new Exception("NO se ha encontrado a la persona cuyo id es: "+id));
         personaRepository.deleteById(id);
-        return "La persona cuyo es id es "+id+" ha sido borrada";
+        return "El id "+id+" ha sido borrado";
     }
 
 }
